@@ -8,27 +8,27 @@
  */
 binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree)
 {
-	binary_tree_t *driver, *tmp;
+	binary_tree_t *pivot, *tmp;
 
 	if (tree == NULL || tree->left == NULL)
 		return (NULL);
 
-	driver = tree->left;
-	tmp = driver->right;
-	driver->right = tree;
+	pivot = tree->left;
+	tmp = pivot->right;
+	pivot->right = tree;
 	tree->left = tmp;
 	if (tmp != NULL)
 		tmp->parent = tree;
 	tmp = tree->parent;
-	tree->parent = driver;
-	driver->parent = tmp;
+	tree->parent = pivot;
+	pivot->parent = tmp;
 	if (tmp != NULL)
 	{
 		if (tmp->left == tree)
-			tmp->left = driver;
+			tmp->left = pivot;
 		else
-			tmp->right = driver;
+			tmp->right = pivot;
 	}
 
-	return (driver);
+	return (pivot);
 }
